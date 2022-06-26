@@ -7,7 +7,7 @@ use Symfony\Component\Dotenv\Dotenv;
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__ . '/../.env');
 
-$ENV = $_ENV['ENV'] ?? 'dev';
+$ENV = env('ENV');
 
 $containerBuilder = new ContainerBuilder();
 
@@ -33,11 +33,18 @@ $routes($app);
 $auth = require __DIR__ . '/../config/auth.php';
 $auth($app);
 
-$displayErrorDetails = $ENV == 'dev';
-$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, true, true);
+// Setup Basic Auth
+$middleware = require __DIR__ . '/../config/middleware.php';
+$middleware($app);
 
-// Error Handler
-$errorHandler = $errorMiddleware->getDefaultErrorHandler();
-$errorHandler->forceContentType('application/json');
+$_SERVER['app'] = &$app;
 
-$app->run();
+if (!function_exists('app'))
+{
+    function app()
+    {
+        return $_SERVER['app'];
+    }
+}
+
+return $app;
