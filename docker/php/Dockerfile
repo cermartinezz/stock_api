@@ -20,7 +20,7 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
 RUN apk add --no-cache libzip-dev && docker-php-ext-install zip
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions pcov-1.0.9 mysqli sockets \
+    install-php-extensions pcov-1.0.9 mysqli sockets
 
 RUN docker-php-ext-enable pcov gd mysqli sockets
 
