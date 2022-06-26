@@ -31,7 +31,7 @@ class BaseTestCase extends PHPUnit_TestCase
         $dotenv = new Dotenv();
         $dotenv->load(__DIR__ . '/../.env');
 
-        $dependencies = require __DIR__ . '/../app/services.php';
+        $dependencies = require __DIR__ . '/../config/services.php';
         $dependencies($containerBuilder);
 
         $container = $containerBuilder->build();
@@ -39,10 +39,10 @@ class BaseTestCase extends PHPUnit_TestCase
 
         $app = AppFactory::create();
 
-        $routes = require __DIR__ . '/../app/routes.php';
+        $routes = require __DIR__ . '/../routes/api.php';
         $routes($app);
 
-        $auth = require __DIR__ . '/../app/auth.php';
+        $auth = require __DIR__ . '/../config/auth.php';
         $auth($app);
 
         return $app;
