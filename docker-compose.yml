@@ -17,10 +17,6 @@ services:
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
-      TENANT_DB_HOST: mysql
-      TENANT_DB_PORT: 3306
-      JAMAICA_DB_HOST: mysql
-      JAMAICA_DB_PORT: 3306
   nginx:
     image: nginx:stable-alpine
     container_name: "jobsity_nginx"

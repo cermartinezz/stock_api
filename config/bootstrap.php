@@ -18,16 +18,14 @@ $dependencies($containerBuilder);
 // Initialize app with PHP-DI
 $container = $containerBuilder->build();
 
-$container->set('db', function () {
-    $database = require __DIR__ . '/../config/database.php';
-    $capsule = new \Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection($database['db']);
-
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-
-    return $capsule;
-});
+$conn = \Illuminate\Container\Container::getInstance();
+$database = require_once __DIR__ . '/../config/database.php';
+$connFactory = new \Illuminate\Database\Connectors\ConnectionFactory($conn);
+$conn = $connFactory->make($database['db']);
+$resolver = new \Illuminate\Database\ConnectionResolver();
+$resolver->addConnection('default', $conn);
+$resolver->setDefaultConnection('default');
+\Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
 
 AppFactory::setContainer($container);
 
