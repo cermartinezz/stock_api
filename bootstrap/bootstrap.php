@@ -1,7 +1,7 @@
 <?php
 
 use DI\ContainerBuilder;
-use Slim\Factory\AppFactory;
+use DI\Bridge\Slim\Bridge as AppFactory;
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
@@ -20,9 +20,7 @@ $container = $containerBuilder->build();
 
 $container->set('db', config('db'));
 
-AppFactory::setContainer($container);
-
-$app = AppFactory::create();
+$app = AppFactory::create($container);
 
 $database = require_once __DIR__ . '/../config/database.php';
 $database($app);
