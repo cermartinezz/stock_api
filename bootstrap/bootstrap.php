@@ -18,18 +18,14 @@ $dependencies($containerBuilder);
 // Initialize app with PHP-DI
 $container = $containerBuilder->build();
 
-$conn = \Illuminate\Container\Container::getInstance();
-$database = require_once __DIR__ . '/../config/database.php';
-$connFactory = new \Illuminate\Database\Connectors\ConnectionFactory($conn);
-$conn = $connFactory->make($database['db']);
-$resolver = new \Illuminate\Database\ConnectionResolver();
-$resolver->addConnection('default', $conn);
-$resolver->setDefaultConnection('default');
-\Illuminate\Database\Eloquent\Model::setConnectionResolver($resolver);
+$container->set('db', config('db'));
 
 AppFactory::setContainer($container);
 
 $app = AppFactory::create();
+
+$database = require_once __DIR__ . '/../config/database.php';
+$database($app);
 
 // Register routes
 $routes = require __DIR__ . '/../routes/api.php';

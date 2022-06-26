@@ -1,14 +1,18 @@
 <?php
 
-return [
-    'db' => [
-        'driver'    => 'mysql',
-        'host'      => 'mysql',
-        'database'  => $_ENV["DB_DATABASE"] ?? 'php_jobsity',
-        'username'  => $_ENV["DB_USER"] ?? 'root',
-        'password'  => $_ENV["DB_PASSWORD"] ?? '',
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix'    => '',
-    ]
-];
+use Illuminate\Container\Container;
+use Illuminate\Database\ConnectionResolver;
+use Illuminate\Database\Connectors\ConnectionFactory;
+use Illuminate\Database\Eloquent\Model;
+use Slim\App;
+
+return function (App $app){
+    $settings = $app->getContainer()->get('db');
+    $conn = Container::getInstance();
+    $connFactory = new ConnectionFactory($conn);
+    $conn = $connFactory->make($settings);
+    $resolver = new ConnectionResolver();
+    $resolver->addConnection('mysql', $conn);
+    $resolver->setDefaultConnection('mysql');
+    Model::setConnectionResolver($resolver);
+};
