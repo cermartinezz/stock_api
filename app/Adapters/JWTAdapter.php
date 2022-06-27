@@ -31,14 +31,21 @@ class JWTAdapter
             ->createToken();
     }
 
+    /**
+     * @param array $data
+     * @return void
+     */
     public function setClaim(array $data)
     {
         $this->claims = array_merge($this->claims,$data);
     }
 
-    private function setUserClaims()
+    /**
+     * @return JWTAdapter
+     */
+    private function setUserClaims(): JWTAdapter
     {
-       $this->claims = [
+        $this->claims = [
             'sub'   => $this->user->id,
             'email' => $this->user->email,
             'name'  => $this->user->first_name,
