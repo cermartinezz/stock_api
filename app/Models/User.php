@@ -4,6 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property int $id
+ * @property string $password
+ */
 class User extends Model
 {
     protected $table = 'users';
