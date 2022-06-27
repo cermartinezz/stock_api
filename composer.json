@@ -14,7 +14,8 @@
         "illuminate/database": "~5.1",
         "php-di/slim-bridge": "^3.2",
         "robmorgan/phinx": "^0.12.10",
-        "tuupola/slim-jwt-auth": "^3.6"
+        "tuupola/slim-jwt-auth": "^3.6",
+        "cakephp/validation": "^4.4"
     },
     "scripts": {
         "start": "php -S localhost:8080 -t public",

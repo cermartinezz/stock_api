@@ -27,6 +27,22 @@ abstract class BaseController
         return $this->json($response, $data, StatusCodeInterface::STATUS_BAD_REQUEST);
     }
 
+    /**
+     * @param Response $response
+     * @param $data
+     * @return Response
+     */
+    public function responseErrorValidation(Response $response, $data): Response
+    {
+        return $this->json($response, $data, StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * @param Response $response
+     * @param $data
+     * @param $statusCode
+     * @return Response
+     */
     public function json(Response $response, $data, $statusCode = StatusCodeInterface::STATUS_OK): Response
     {
         $data = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

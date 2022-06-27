@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9487e896bd5b96c830bf4566309bd189",
+    "content-hash": "938176bdbf3b7b5c96d4e187df0205fb",
     "packages": [
         {
             "name": "cakephp/core",
@@ -234,6 +234,60 @@
                 "source": "https://github.com/cakephp/utility"
             },
             "time": "2022-05-20T04:16:49+00:00"
+        },
+        {
+            "name": "cakephp/validation",
+            "version": "4.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/validation.git",
+                "reference": "f9aaf01aea2f2b08149c6a532f7bcc943d3b3b28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/validation/zipball/f9aaf01aea2f2b08149c6a532f7bcc943d3b3b28",
+                "reference": "f9aaf01aea2f2b08149c6a532f7bcc943d3b3b28",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/core": "^4.0",
+                "cakephp/utility": "^4.0",
+                "php": ">=7.4.0",
+                "psr/http-message": "^1.0.0"
+            },
+            "suggest": {
+                "cakephp/i18n": "If you want to use Validation::localizedTime()"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Validation\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/validation/graphs/contributors"
+                }
+            ],
+            "description": "CakePHP Validation library",
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "cakephp",
+                "data validation",
+                "validation"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "irc": "irc://irc.freenode.org/cakephp",
+                "issues": "https://github.com/cakephp/cakephp/issues",
+                "source": "https://github.com/cakephp/validation"
+            },
+            "time": "2022-04-20T04:29:43+00:00"
         },
         {
             "name": "doctrine/inflector",

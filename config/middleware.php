@@ -1,6 +1,10 @@
 <?php
 
+use App\Middleware\JsonBodyParserMiddleware;
+
 return function (\Slim\App $app){
+
+    $app->add(new JsonBodyParserMiddleware());
     $app->add(new Tuupola\Middleware\JwtAuthentication([
         "path" => '/api',
         "ignore" => ["/api/login"],

@@ -3,6 +3,7 @@
 namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController as Controller;
+use App\Request\LoginRequest;
 use App\Traits\Authenticator;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Request;
@@ -16,14 +17,13 @@ class LoginController extends Controller
     {
         $data = $request->getParsedBody();
 
-        $email = $data['email'];
-        if (! isset($email)) {
-            throw new \Exception('The field "email" is required.', 400);
+        $validator = (new LoginRequest())->validate($data);
+
+        if($validator->isNotValid()){
+            return $this->responseErrorValidation($response, $validator->errors());
         }
-        $password = $data['password'];
-        if (! isset($password)) {
-            throw new \Exception('The field "password" is required.', 400);
-        }
+
+        [$email,$password] = $data;
 
         $token = $this->authenticateUser($email, $password);
 
