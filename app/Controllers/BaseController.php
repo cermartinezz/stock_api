@@ -22,6 +22,16 @@ abstract class BaseController
      * @param $data
      * @return Response
      */
+    public function responseCreated(Response $response, $data): Response
+    {
+        return $this->json($response, $data, StatusCodeInterface::STATUS_CREATED);
+    }
+
+    /**
+     * @param Response $response
+     * @param $data
+     * @return Response
+     */
     public function responseBadRequest(Response $response, $data): Response
     {
         return $this->json($response, $data, StatusCodeInterface::STATUS_BAD_REQUEST);

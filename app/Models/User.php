@@ -21,4 +21,12 @@ class User extends Model
 
     protected $hidden = ['password'];
 
+    public static function create(array $data): User
+    {
+        $user = new self($data);
+        $user->password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $user->save();
+
+        return $user;
+    }
 }

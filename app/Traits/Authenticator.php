@@ -16,7 +16,7 @@ trait Authenticator
             return [];
         }
 
-        $token = (new JWTAdapter($user))->getToken();
+        $token = $this->createToken($user);
 
         return [
             'user' => $user,
@@ -32,5 +32,10 @@ trait Authenticator
     public function validatePassword($password, $hashedPassword): bool
     {
         return password_verify($password, $hashedPassword);
+    }
+
+    public function createToken(User $user): string
+    {
+        return (new JWTAdapter($user))->getToken();
     }
 }
