@@ -8,9 +8,12 @@ return function (\Slim\App $app){
         "error" => function ($response, $arguments) {
             $data["status"] = "error";
             $data["message"] = $arguments["message"];
-            return $response
-                ->withHeader("Content-Type", "application/json")
-                ->getBody()->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            $response = $response->withHeader('Content-Type', 'application/json');
+
+            $response->getBody()
+                ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+
+            return $response;
         }
     ]));
 

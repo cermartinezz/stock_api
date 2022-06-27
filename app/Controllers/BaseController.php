@@ -29,7 +29,7 @@ abstract class BaseController
 
     public function json(Response $response, $data, $statusCode = StatusCodeInterface::STATUS_OK): Response
     {
-        $data = json_encode($data);
+        $data = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
         $response = $response->withHeader('Content-Type', 'application/json')
             ->withStatus($statusCode);

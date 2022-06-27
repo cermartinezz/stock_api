@@ -11,6 +11,10 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
+        ],
+        'auth' => [
+            # 1 day (1 * 24 * 60 * 60)
+            'token_lifetime' => 86400
         ]
     ]
 ];

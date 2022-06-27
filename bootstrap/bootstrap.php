@@ -18,7 +18,7 @@ $dependencies($containerBuilder);
 // Initialize app with PHP-DI
 $container = $containerBuilder->build();
 
-$container->set('db', config('db'));
+$container->set('db', config('settings.db'));
 
 $app = AppFactory::create($container);
 
