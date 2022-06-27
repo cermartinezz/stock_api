@@ -20,6 +20,8 @@ $container = $containerBuilder->build();
 
 $container->set('db', config('settings.db'));
 
+date_default_timezone_set(config('settings.location.region'));
+
 $app = AppFactory::create($container);
 
 $database = require_once __DIR__ . '/../config/database.php';

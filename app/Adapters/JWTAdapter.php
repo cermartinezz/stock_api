@@ -50,7 +50,7 @@ class JWTAdapter
             'email' => $this->user->email,
             'name'  => $this->user->first_name,
             'iat'   => time(),
-            'exp'   => time() + config('settings.jwt.token_lifetime'),
+            'exp'   => time() + config('settings.auth.token_lifetime'),
         ];
 
        return $this;

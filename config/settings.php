@@ -15,6 +15,9 @@ return [
         'auth' => [
             # 1 day (1 * 24 * 60 * 60)
             'token_lifetime' => 86400
+        ],
+        'location' => [
+            'region' => 'America/El_Salvador'
         ]
     ]
 ];

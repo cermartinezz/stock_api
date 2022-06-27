@@ -23,11 +23,11 @@ if (!function_exists('factory'))
 
 if (!function_exists('config'))
 {
-    function config($path = null)
+    function config($path = null, $default = null)
     {
-        $config = require_once __DIR__ . '/../config/settings.php';
+        $config = require __DIR__ . '/../config/settings.php';
 
-        return data_get($config, $path);
+        return data_get($config, $path, $default);
     }
 }
 
