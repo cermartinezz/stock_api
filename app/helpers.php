@@ -1,6 +1,25 @@
 <?php
 
 use DI\ContainerBuilder;
+use Illuminate\Support\Collection;
+
+if (!function_exists('collect'))
+{
+    function collect($items)
+    {
+        return new Collection($items);
+    }
+}
+
+if (!function_exists('factory'))
+{
+    function factory(string $model, int $count = 1)
+    {
+        $factory = new Factory;
+
+        return $factory($model, $count);
+    }
+}
 
 if (! function_exists('config')) {
     function config($key) {

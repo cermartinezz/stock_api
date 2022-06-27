@@ -12,7 +12,7 @@ $ENV = env('ENV');
 $containerBuilder = new ContainerBuilder();
 
 // Import services
-$dependencies = require __DIR__ . '/../config/services.php';
+$dependencies = require_once __DIR__ . '/../config/services.php';
 $dependencies($containerBuilder);
 
 // Initialize app with PHP-DI
@@ -26,15 +26,15 @@ $database = require_once __DIR__ . '/../config/database.php';
 $database($app);
 
 // Register routes
-$routes = require __DIR__ . '/../routes/api.php';
+$routes = require_once __DIR__ . '/../routes/api.php';
 $routes($app);
 
 // Setup Basic Auth
-$auth = require __DIR__ . '/../config/auth.php';
+$auth = require_once __DIR__ . '/../config/auth.php';
 $auth($app);
 
 // Setup Basic Auth
-$middleware = require __DIR__ . '/../config/middleware.php';
+$middleware = require_once __DIR__ . '/../config/middleware.php';
 $middleware($app);
 
 $_SERVER['app'] = &$app;
