@@ -23,7 +23,7 @@ class LoginController extends Controller
             return $this->responseErrorValidation($response, $validator->errors());
         }
 
-        [$email,$password] = $data;
+        ['email'=>$email,'password'=>$password] = $data;
 
         $token = $this->authenticateUser($email, $password);
 

@@ -13,7 +13,7 @@ class LoginRequest extends FormRequest
             ->maxLength('email', 60, 'Too long')
             ->requirePresence('password', 'This field is required')
             ->notEmptyString('password', 'Password is required')
-            ->minLength('password', 8, 'Too short')
+            ->minLength('password', 3, 'Too short')
             ->maxLength('password', 60, 'Too long')
             ->requirePresence('email', 'This field is required')
             ->email('email', false, 'E-Mail must be valid')
