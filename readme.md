@@ -34,11 +34,18 @@ NOTE: the password of the **mysql** docker image will be the same as the one you
 
 ### features
 
-1. register users
-2. login user with JWT
-3. fetch stock data
+1. register users (YES)
+2. login user with JWT (YES)
+3. fetch stock data (YES)
    - send email with the stock data
    - fetch data in json o csv format
-4. fetch user history
+4. fetch user history (YES)
+
+### optional features
+
+1. Add unit tests for the endpoints. (NO)
+2. Use RabbitMQ to send the email asynchronously. (NO)
+3. Use JWT instead of basic authentication for endpoints. (YES)
+4. Containerize the app. (YES)
 
 NOTE: the default password for the user created by the seeder is **password**
