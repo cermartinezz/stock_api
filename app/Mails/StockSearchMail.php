@@ -2,13 +2,15 @@
 
 namespace App\Mails;
 
+use App\Models\StockHistory;
+use App\Models\User;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
 class StockSearchMail
 {
-    private $mailer;
+    private MailerInterface $mailer;
 
     public function __construct(MailerInterface $mailer)
     {
@@ -18,19 +20,19 @@ class StockSearchMail
     /**
      * @throws TransportExceptionInterface
      */
-    public function sendEmail(): void
+    public function sendEmail(StockHistory $stock, User $user): void
     {
-        // Send email
         $email = (new Email())
-            ->from('hello@example.com')
-            ->to('you@example.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('john.doe@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>My HTML content</p>');
+            ->from('market@stock.com')
+            ->to($user->email)
+            ->subject("Information about $stock->name in the market on $stock->date")
+            ->html("
+                <p>Information about $stock->name - <b>$stock->symbol</b></p>
+                <p>Open: <b>$stock->open</b></p>
+                <p>Close: <b>$stock->close</b></p>
+                <p>High: <b>$stock->high</b></p>
+                <p>Low: <b>$stock->low</b></p>
+            ");
 
         $this->mailer->send($email);
     }

@@ -16,8 +16,7 @@
         "tuupola/slim-jwt-auth": "^3.6",
         "cakephp/validation": "^4.4",
         "curl/curl": "^2.3",
-        "symfony/mailer": "^6.0",
-        "illuminate/http": "^9.19"
+        "symfony/mailer": "^6.0"
     },
     "scripts": {
         "start": "php -S localhost:8080 -t public",

@@ -13,6 +13,13 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class StockController extends Controller
 {
+    private MailerInterface $mailer;
+
+    public function __construct(MailerInterface $mailer)
+    {
+        $this->mailer =$mailer;
+    }
+
     /**
      * @param \Slim\Psr7\Request $request
      * @param Response $response
@@ -37,7 +44,10 @@ class StockController extends Controller
      * @return Response
      * @throws TransportExceptionInterface
      */
-    public function show(Request $request, Response $response, StockAdapter $stooqAdapter, MailerInterface $mailer): Response
+    public function show(
+        Request $request,
+        Response $response,
+        StockAdapter $stooqAdapter): Response
     {
         /** @var User $user */
         $user = $request->getAttribute('auth');
@@ -53,7 +63,7 @@ class StockController extends Controller
         $stock->user_id = $user->id;
         $stock->save();
 
-        (new StockSearchMail($mailer))->sendEmail();
+        (new StockSearchMail($this->mailer))->sendEmail($stock,$user);
 
         return $this->responseSuccess($response, $stock);
     }
