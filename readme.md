@@ -25,6 +25,8 @@ NOTE: the password of the **mysql** docker image will be the same as the one you
 1. Copy the link of this [collection](https://www.getpostman.com/collections/ad4c38672c19e9e2a429)
 2. Import the collection into Postman
    - click on import and then past the link
+3. The collection work with a variable called **url_api** this should be equals to http://localhost:8080
+
 
 ![img.png](storage/readme/img.png)
 
