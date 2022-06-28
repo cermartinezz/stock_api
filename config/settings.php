@@ -18,6 +18,13 @@ return [
         ],
         'location' => [
             'region' => 'America/El_Salvador'
+        ],
+        'smtp' => [
+            'type'      => env('MAILER_TYPE','smtp'),
+            'host'      => env('MAILER_HOST','smtp.mailtrap.io'),
+            'port'      => env('MAILER_PORT','2525'),
+            'username'  => env('MAILER_USERNAME','my-username'),
+            'password'  => env('MAILER_PASSWORD','my-secret-password'),
         ]
     ]
 ];

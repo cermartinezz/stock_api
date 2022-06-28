@@ -2,22 +2,27 @@
 declare(strict_types=1);
 
 use DI\ContainerBuilder;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
 
-        Swift_Mailer::class => function() {
-            $host = $_ENV['MAILER_HOST'] ?? 'smtp.mailtrap.io';
-            $port = intval($_ENV['MAILER_PORT']) ?? 465;
-            $username = $_ENV['MAILER_USERNAME'] ?? 'test';
-            $password = $_ENV['MAILER_PASSWORD'] ?? 'test';
+        // SMTP transport
+        MailerInterface::class => function () {
+            $settings = config('settings.smtp');
 
-            $transport = (new Swift_SmtpTransport($host, $port))
-                ->setUsername($username)
-                ->setPassword($password)
-            ;
+            $dsn = sprintf(
+                '%s://%s:%s@%s:%s',
+                $settings['type'],
+                $settings['username'],
+                $settings['password'],
+                $settings['host'],
+                $settings['port']
+            );
 
-            return new Swift_Mailer($transport);
+            return new Mailer(Transport::fromDsn($dsn));
         },
     ]);
 

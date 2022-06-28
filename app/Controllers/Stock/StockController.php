@@ -4,9 +4,12 @@ namespace App\Controllers\Stock;
 
 use App\Adapters\StockAdapter;
 use App\Controllers\BaseController as Controller;
+use App\Mails\StockSearchMail;
 use App\Models\User;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 
 class StockController extends Controller
 {
@@ -30,9 +33,11 @@ class StockController extends Controller
      * @param \Slim\Psr7\Request $request
      * @param Response $response
      * @param StockAdapter $stooqAdapter
+     * @param MailerInterface $mailer
      * @return Response
+     * @throws TransportExceptionInterface
      */
-    public function show(Request $request, Response $response, StockAdapter $stooqAdapter): Response
+    public function show(Request $request, Response $response, StockAdapter $stooqAdapter, MailerInterface $mailer): Response
     {
         /** @var User $user */
         $user = $request->getAttribute('auth');
@@ -47,6 +52,8 @@ class StockController extends Controller
         $stock = $stooqAdapter->getStock($code);
         $stock->user_id = $user->id;
         $stock->save();
+
+        (new StockSearchMail($mailer))->sendEmail();
 
         return $this->responseSuccess($response, $stock);
     }
