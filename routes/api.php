@@ -12,6 +12,7 @@ return function (App $app) {
     $app->group('/api' , function (RouteCollectorProxy $group){
         $group->group('/v1', function (RouteCollectorProxy $group){
             $group->get('/stock', [StockController::class, 'show']);
+            $group->get('/history', [StockController::class, 'index']);
         });
 
         $group->post('/login', [LoginController::class, 'login']);

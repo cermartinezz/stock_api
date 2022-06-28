@@ -21,7 +21,7 @@ final class MakeStockHistoryTable extends AbstractMigration
         $table=$this->table('stock_histories');
         $table
             ->addColumn('user_id', 'integer')
-            ->addColumn('date','time')
+            ->addColumn('date','date')
             ->addColumn('name','string',['limit'=>128])
             ->addColumn('symbol','string',['limit'=>128])
             ->addColumn('open','string',['limit'=>128])

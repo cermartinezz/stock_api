@@ -13,6 +13,22 @@ class StockController extends Controller
     /**
      * @param \Slim\Psr7\Request $request
      * @param Response $response
+     * @return Response
+     */
+    public function index(Request $request, Response $response): Response
+    {
+        /** @var User $user */
+        $user = $request->getAttribute('auth');
+
+        $history = $user->stockHistory()->get();
+
+        return $this->responseSuccess($response, $history);
+    }
+
+
+    /**
+     * @param \Slim\Psr7\Request $request
+     * @param Response $response
      * @param StockAdapter $stooqAdapter
      * @return Response
      */

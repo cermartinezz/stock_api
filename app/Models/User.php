@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $first_name
@@ -20,6 +21,11 @@ class User extends Model
     protected $guarded = ['password'];
 
     protected $hidden = ['password'];
+
+    public function stockHistory(): HasMany
+    {
+        return $this->hasMany(StockHistory::class);
+    }
 
     public static function create(array $data): User
     {
