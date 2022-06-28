@@ -1,8 +1,10 @@
 <?php
 
 use App\Middleware\JsonBodyParserMiddleware;
+use App\Models\User;
+use Slim\App;
 
-return function (\Slim\App $app){
+return function (App $app){
 
     $app->add(new JsonBodyParserMiddleware());
     $app->add(new Tuupola\Middleware\JwtAuthentication([
@@ -18,6 +20,14 @@ return function (\Slim\App $app){
                 ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 
             return $response;
+        },
+        "before" => function ($request, $arguments){
+            $token = $request->getAttribute('token');
+
+            if(!empty($token)){
+                $user = User::query()->where('id', $token['sub'])->first();
+                return $request->withAttribute("auth", $user);
+            }
         }
     ]));
 

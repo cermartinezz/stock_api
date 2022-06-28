@@ -1,7 +1,7 @@
 <?php
 
-use DI\ContainerBuilder;
 use DI\Bridge\Slim\Bridge as AppFactory;
+use DI\ContainerBuilder;
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
@@ -15,10 +15,8 @@ $containerBuilder = new ContainerBuilder();
 $dependencies = require_once __DIR__ . '/../config/services.php';
 $dependencies($containerBuilder);
 
-// Initialize app with PHP-DI
-$container = $containerBuilder->build();
-
-$container->set('db', config('settings.db'));
+$containerFactory = require_once __DIR__ . '/../config/container.php';
+$container = $containerFactory($containerBuilder);
 
 date_default_timezone_set(config('settings.location.region'));
 
