@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 /**
  * @property string $first_name
@@ -39,11 +40,22 @@ class User extends Model
     /**
      * Set the user's password
      *
-     * @param  string  $value
+     * @param string $value
      * @return void
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute(string $value): void
     {
         $this->attributes['password'] = password_hash($value, PASSWORD_BCRYPT);
+    }
+
+    /**
+     * Set the user's password
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setEmailAttribute(string $value): void
+    {
+        $this->attributes['email'] = Str::lower($value);
     }
 }
