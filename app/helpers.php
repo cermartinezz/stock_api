@@ -133,3 +133,35 @@ if (! function_exists('data_get')) {
         return $target;
     }
 }
+
+if(! function_exists('parse_csv')){
+    function parse_csv($csv_string, $delimiter = ",", $skip_empty_lines = true, $trim_fields = true): array
+    {
+        $enc = preg_replace('/(?<!")""/', '!!Q!!', $csv_string);
+        $enc = preg_replace_callback(
+            '/"(.*?)"/s',
+            function ($field) {
+                return urlencode(utf8_encode($field[1]));
+            },
+            $enc
+        );
+        $lines = preg_split($skip_empty_lines ? ($trim_fields ? '/( *\R)+/s' : '/\R+/s') : '/\R/s', $enc);
+        $result= array_map(
+            function ($line) use ($delimiter, $trim_fields) {
+                $fields = $trim_fields ? array_map('trim', explode($delimiter, $line)) : explode($delimiter, $line);
+                return array_map(
+                    function ($field) {
+                        return str_replace('!!Q!!', '"', utf8_decode(urldecode($field)));
+                    },
+                    $fields
+                );
+            },
+            $lines
+        );
+
+        array_pop($result);
+
+        return $result;
+    }
+}
+

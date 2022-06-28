@@ -4,5 +4,5 @@ namespace App\Adapters;
 
 interface StockAdapter
 {
-    public function getStock($code);
+    public function getStock($code, $format);
 }

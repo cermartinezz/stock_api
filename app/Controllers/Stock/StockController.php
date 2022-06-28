@@ -58,8 +58,14 @@ class StockController extends Controller
         }
 
         $code = $data['q'];
+        $format = $data['format'] ?? 'json';
 
-        $stock = $stooqAdapter->getStock($code);
+        $stock = $stooqAdapter->getStock($code, $format);
+
+        if(empty($stock->date)){
+            return $this->responseSuccess($response, ['message' => "Stock with code $code was not found"]);
+        }
+
         $stock->user_id = $user->id;
         $stock->save();
 
