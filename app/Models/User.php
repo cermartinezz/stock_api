@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property int $id
  * @property string $password
+ * @property string $full_name
  */
 class User extends Model
 {
@@ -58,4 +59,28 @@ class User extends Model
     {
         $this->attributes['email'] = Str::lower($value);
     }
+
+    /**
+     * Get the user's full_name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        $first_name = Str::ucfirst($this->first_name);
+        $last_name = Str::ucfirst($this->last_name);
+
+        return "$first_name $last_name";
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'name' => $this->full_name,
+        ];
+    }
+
+
 }

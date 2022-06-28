@@ -30,7 +30,7 @@ class StockController extends Controller
         /** @var User $user */
         $user = $request->getAttribute('auth');
 
-        $history = $user->stockHistory()->get();
+        $history = $user->stockHistory()->latest()->get();
 
         return $this->responseSuccess($response, $history);
     }

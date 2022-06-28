@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property $date
+ * @property Carbon $date
  * @property $name
  * @property $symbol
  * @property $open
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property $low
  * @property $close
  * @property $stockExist
+ * @property Carbon $created_at
  */
 class StockHistory extends Model
 {
@@ -25,4 +27,20 @@ class StockHistory extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function toArray()
+    {
+        return [
+            'date' => $this->date->toString(),
+            'name' => $this->name,
+            'symbol' => $this->symbol,
+            'open' => $this->open,
+            'high' => $this->high,
+            'low' => $this->low,
+            'close' => $this->close,
+            'requested_at' => $this->created_at->toString()
+        ];
+    }
+
+
 }

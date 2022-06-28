@@ -51,7 +51,9 @@ class StooqAdapter implements StockAdapter
         $stock = new StockHistory();
 
         $stock->symbol = $this->stockData->symbol;
-        $stock->date = $this->stockData->date ?? '';
+        if(isset($this->stockData->date)){
+            $stock->date = $this->stockData->date . " " . $this->stockData->time;
+        }
         $stock->name = $this->stockData->name ?? '';
         $stock->open = $this->stockData->open ?? '';
         $stock->high = $this->stockData->high ?? '';
