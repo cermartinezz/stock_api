@@ -9,6 +9,8 @@ $dotenv->load(__DIR__ . '/../.env');
 
 $ENV = env('ENV');
 
+throw_when(empty(env('APP_KEY','')), "Set APP_KEY variable environment");
+
 $containerBuilder = new ContainerBuilder();
 
 // Import services
