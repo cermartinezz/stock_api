@@ -30,9 +30,20 @@ class User extends Model
     public static function create(array $data): User
     {
         $user = new self($data);
-        $user->password = password_hash($data['password'], PASSWORD_BCRYPT);
+        $user->password = $data['password'];
         $user->save();
 
         return $user;
+    }
+
+    /**
+     * Set the user's password
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = password_hash($value, PASSWORD_BCRYPT);
     }
 }
